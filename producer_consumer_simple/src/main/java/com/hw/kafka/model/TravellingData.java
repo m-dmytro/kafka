@@ -3,15 +3,13 @@ package com.hw.kafka.model;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CarTravellingData {
+public class TravellingData {
 
-   private String carId;
    private List<Coordinate> trackings;
    private Coordinate lastPosition;
    private double totalDistance;
 
-    public CarTravellingData(String carId, Coordinate lastPosition) {
-        this.carId = carId;
+    public TravellingData(Coordinate lastPosition) {
         this.totalDistance = 0;
         this.lastPosition = lastPosition;
 

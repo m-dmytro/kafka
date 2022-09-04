@@ -27,6 +27,11 @@ public class KafkaConsumerConfig {
     public ConsumerFactory<String, CarPosition> carPositionConsumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+
+        /* At-Most-Once */
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true"); /* default: true */
+        props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1"); /* default: 5000 */
+
         return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(CarPosition.class));
     }
 

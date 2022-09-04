@@ -31,7 +31,6 @@ public class KafkaProducer {
                         + " Partition: " + result.getRecordMetadata().partition()
                         + " Offset: " + result.getRecordMetadata().offset()
                         + " Timestamp: " + result.getRecordMetadata().timestamp());
-                System.out.println();
             }
             @Override
             public void onFailure(Throwable ex) {
@@ -55,7 +54,6 @@ public class KafkaProducer {
 //                        + " Partition: " + result.getRecordMetadata().partition()
 //                        + " Offset: " + result.getRecordMetadata().offset()
 //                        + " Timestamp: " + result.getRecordMetadata().timestamp());
-//                System.out.println();
 //            }
 //            @Override
 //            public void onFailure(Throwable ex) {

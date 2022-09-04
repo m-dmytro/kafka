@@ -20,12 +20,9 @@ public class PubController {
 
     @PostMapping(value = "submit", consumes = "application/json", produces = "application/json")
     public void submit(@RequestBody CarPosition car) {
-
         logger.info("Message received at the endpoint: '" + car + "'");
         producer.sendMessage(car);
 //        producer.sendMessage(car.id(), car.toString());
-
-        System.out.println();
     }
 
 }

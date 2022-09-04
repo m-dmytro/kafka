@@ -1,6 +1,6 @@
 package com.hw.kafka.config;
 
-import com.hw.kafka.model.CarsTravelDistanceCache;
+import com.hw.kafka.model.CarsTravelDistancesCache;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 public class Config {
 
     @Bean
-    public CarsTravelDistanceCache createCarsTravelDistanceCache() {
-        return new CarsTravelDistanceCache();
+    public CarsTravelDistancesCache createCarsTravelDistanceCache() {
+        return new CarsTravelDistancesCache();
     }
 
 }

@@ -1,0 +1,33 @@
+* run kafka docker (in the current folder)
+docker-compose up -d
+
+* stop kafka docker (in the current folder)
+docker-compose down -v
+
+
+
+* List of running containers
+docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}'
+
+* View stdout logs
+docker logs kafka
+docker logs zookeeper
+
+
+
+* Run Kafka Commands inside the container
+
+** List Brokers
+docker exec -ti kafka /usr/bin/broker-list.sh
+
+** List Topics
+docker exec -ti kafka /opt/kafka/bin/kafka-topics.sh --list --zookeeper zookeeper:2181
+
+** Describe Tipic
+docker exec -ti kafka /opt/kafka/bin/kafka-topics.sh --describe --topic car_tracking --bootstrap-server localhost:9092
+
+** Create a Topic
+docker exec -ti kafka /opt/kafka/bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic car_tracking
+
+** View Message Content Sent to Topic
+docker exec -ti kafka /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic car_tracking --from-beginning --max-messages 10

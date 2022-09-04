@@ -1,4 +1,4 @@
 package com.hw.kafka.model;
 
-public record Point(int x, int y) {
+public record Coordinate(int x, int y) {
 }

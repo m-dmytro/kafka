@@ -1,7 +1,7 @@
 package com.hw.kafka.service;
 
 import com.hw.kafka.model.CarPosition;
-import com.hw.kafka.model.CarsTravelDistanceCache;
+import com.hw.kafka.model.CarsTravelDistancesCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class KafkaConsumer {
     private String groupId;
 
     @Autowired
-    CarsTravelDistanceCache carsTravelDistanceCache;
+    CarsTravelDistancesCache carsTravelDistancesCache;
 
     /* from all partitions in topic */
 //    @KafkaListener(id = "${kafka.group.id}", topics = "${kafka.car-tracking.topic}", containerFactory = "carPositionKafkaListenerContainerFactory")
@@ -40,7 +40,7 @@ public class KafkaConsumer {
             containerFactory = "carPositionKafkaListenerContainerFactory")
     public void listenFromPartition0(@Payload CarPosition carPosition, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
         logger.info("Received message=[" + carPosition + "] from: Topic: " + topicName + " Partition: " + partition);
-        carsTravelDistanceCache.updateCarPosition(carPosition);
+        carsTravelDistancesCache.updateCarPosition(carPosition);
     }
 
     @KafkaListener(id = "car-position-consume-group_partition-1",
@@ -48,7 +48,7 @@ public class KafkaConsumer {
             containerFactory = "carPositionKafkaListenerContainerFactory")
     public void listenFromPartition1(@Payload CarPosition carPosition, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
         logger.info("Received message=[" + carPosition + "] from: Topic: " + topicName + " Partition: " + partition);
-        carsTravelDistanceCache.updateCarPosition(carPosition);
+        carsTravelDistancesCache.updateCarPosition(carPosition);
     }
 
     @KafkaListener(id = "car-position-consume-group_partition-2",
@@ -56,7 +56,7 @@ public class KafkaConsumer {
             containerFactory = "carPositionKafkaListenerContainerFactory")
     public void listenFromPartition2(@Payload CarPosition carPosition, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
         logger.info("Received message=[" + carPosition + "] from: Topic: " + topicName + " Partition: " + partition);
-        carsTravelDistanceCache.updateCarPosition(carPosition);
+        carsTravelDistancesCache.updateCarPosition(carPosition);
     }
 
     /* string message */
