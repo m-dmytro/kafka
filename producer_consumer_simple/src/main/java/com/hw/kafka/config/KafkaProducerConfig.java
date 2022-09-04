@@ -20,6 +20,7 @@ public class KafkaProducerConfig {
     @Value(value = "${kafka.bootstrapAddress}")
     private String bootstrapAddress;
 
+    /** serialize obj message form Kafka */
     @Bean
     public ProducerFactory<String, CarPosition> carPositionProducerFactory() {
         Map<String, Object> configProps = new HashMap<>();
@@ -27,9 +28,13 @@ public class KafkaProducerConfig {
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
 
-        /* At-Least-Once */
-        configProps.put(ProducerConfig.ACKS_CONFIG, "all");
-        configProps.put(ProducerConfig.RETRIES_CONFIG, Integer.MAX_VALUE);
+//        /* At-Least-Once */
+//        configProps.put(ProducerConfig.ACKS_CONFIG, "all");
+//        configProps.put(ProducerConfig.RETRIES_CONFIG, Integer.MAX_VALUE);
+
+        /* Exactly-Once: enable transactions */
+        configProps.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
+        configProps.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "prod-0");
 
         return new DefaultKafkaProducerFactory<>(configProps);
     }
@@ -40,7 +45,7 @@ public class KafkaProducerConfig {
     }
 
 
-
+//    /** serialize string message form Kafka */
 //    @Bean
 //    public ProducerFactory<String, String> producerFactory() {
 //        Map<String, Object> configProps = new HashMap<>();
@@ -49,7 +54,6 @@ public class KafkaProducerConfig {
 //        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 //        return new DefaultKafkaProducerFactory<>(configProps);
 //    }
-//
 //    @Bean
 //    public KafkaTemplate<String, String> kafkaTemplate() {
 //        return new KafkaTemplate<>(producerFactory());
